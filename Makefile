@@ -1,7 +1,7 @@
 
 all:
 	mkdir -p build
-	gcc src/main.c -o build/out
+	gcc src/main.c src/mem.c -o build/out
 
 clean:
 	rm -f build/*
