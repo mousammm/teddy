@@ -20,6 +20,12 @@ static void initCPU(CPU *cpu) {
   cpu->PC = 0x1000;
 }
 
+typedef void (*InsFun)(CPU*, RAM*);
+typedef struct {
+  InsFun  func;
+  u8      pc_inc;
+} Instruction;
+
 
 /* LDA $49 $44 (Immediate) */
 static void LDA(CPU *cpu, RAM *ram) {
@@ -65,4 +71,3 @@ static void STY(CPU *cpu, RAM *ram) {
 
   ram->RAM[loc] = cpu->YR;
 };
-

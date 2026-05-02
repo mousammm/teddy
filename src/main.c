@@ -6,48 +6,40 @@
 CPU cpu;
 RAM ram;
 
+Instruction INS[0x100] = {
+  [0xA9] = (Instruction){LDA, 2},
+  [0xA2] = (Instruction){LDX, 2},
+  [0xA0] = (Instruction){LDY, 2},
+
+  [0x8D] = (Instruction){STA, 3},
+  [0x8E] = (Instruction){STX, 3},
+  [0x8C] = (Instruction){STY, 3},
+};
+
 /* tick */
 void tick(CPU *cpu, RAM *ram) {
   u8 command = ram->RAM[cpu->PC];
 
-  if (command == 0xA9) { /* LDA $A9 $44 */
-    LDA(cpu, ram); /* mode: immediate */
-    cpu->PC += 2;
-  }
+  Instruction *inst = &INS[command];
+  // printf("cmd: %d\n", inst->pc_inc);
 
-  if (command == 0xA2) { /* LDX $A2 $45 */
-    LDX(cpu, ram); /* mode: immediate */
-    cpu->PC += 2;
-  }
-
-  if (command == 0xA0) { /* LDY $A0 $46 */
-    LDY(cpu, ram); /* mode: immediate */
-    cpu->PC += 2;
-  }
-
-  if (command == 0x8D) { /* STA $8D $4400 */
-    STA(cpu, ram); /* mode: immediate */
-    cpu->PC += 3;
-  }
-
-  if (command == 0x8E) { /* STX $8E $4401 */
-    STX(cpu, ram); /* mode: immediate */
-    cpu->PC += 3;
-  }
-
-  if (command == 0x8C) { /* STY $8C $4402 */
-    STY(cpu, ram); /* mode: immediate */
-    cpu->PC += 3;
+  if (inst->func) {
+    inst->func(cpu, ram);
+    cpu->PC += inst->pc_inc;
+  } else {
+    printf("Unknown opcode: 0x%02x\n", command);
+    cpu->PC++;
   }
 
 };
 
 int main(int argc, char *argv[])
 {
+
   initCPU(&cpu);
   initRAM(&ram);
 
-  for (int i = 0; i < 100; ++i) {
+  for (int i = 0; i < 10; ++i) {
     tick(&cpu, &ram);
   };
 
@@ -56,11 +48,11 @@ int main(int argc, char *argv[])
   printf("\t YR: %hu 0x%02x\n", cpu.YR, cpu.YR);
   printf("\t PC: %hu 0x%02x\n", cpu.PC, cpu.PC);
 
-  printf("\n\t STA: %hu 0x%02x\n", ram.RAM[0x4400], ram.RAM[0x4400]);
+  printf("\n");
+
+  printf("\t STA: %hu 0x%02x\n", ram.RAM[0x4400], ram.RAM[0x4400]);
   printf("\t STX: %hu 0x%02x\n", ram.RAM[0x4401], ram.RAM[0x4401]);
   printf("\t STX: %hu 0x%02x\n", ram.RAM[0x4402], ram.RAM[0x4402]);
-
-  printf("\t 0x%02x\n", ram.RAM[0x1000]);
 
   return EXIT_SUCCESS;
 }
