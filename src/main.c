@@ -6,51 +6,6 @@
 CPU cpu;
 RAM ram;
 
-/* LDA $49 $44 (Immediate) */
-void LDA(CPU *cpu, RAM *ram) {
-  u8 val = ram->RAM[cpu->PC+1];
-  cpu->AC = val;
-};
-
-/* LDX $4@ $45 (Immediate) */
-void LDX(CPU *cpu, RAM *ram) {
-  u8 val = ram->RAM[cpu->PC+1];
-  cpu->XR = val;
-};
-
-/* LDY $40 $46 (Immediate) */
-void LDY(CPU *cpu, RAM *ram) {
-  u8 val = ram->RAM[cpu->PC+1];
-  cpu->YR = val;
-};
-
-/* STA $8D $4400(Absolute) */
-void STA(CPU *cpu, RAM *ram) {
-  u8 lsb = ram->RAM[cpu->PC+1];
-  u8 msb = ram->RAM[cpu->PC+2];
-  u16 loc = msb * 256 + lsb;
-
-  ram->RAM[loc] = cpu->AC;
-};
-
-/* STX $8E $4401(Absolute) */
-void STX(CPU *cpu, RAM *ram) {
-  u8 lsb = ram->RAM[cpu->PC+1];
-  u8 msb = ram->RAM[cpu->PC+2];
-  u16 loc = msb * 256 + lsb;
-
-  ram->RAM[loc] = cpu->XR;
-};
-
-/* STY $8C $4403(Absolute) */
-void STY(CPU *cpu, RAM *ram) {
-  u8 lsb = ram->RAM[cpu->PC+1];
-  u8 msb = ram->RAM[cpu->PC+2];
-  u16 loc = msb * 256 + lsb;
-
-  ram->RAM[loc] = cpu->YR;
-};
-
 /* tick */
 void tick(CPU *cpu, RAM *ram) {
   u8 command = ram->RAM[cpu->PC];
