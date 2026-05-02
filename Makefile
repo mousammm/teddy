@@ -1,9 +1,9 @@
 
 all:
-	gcc main.c
+	gcc src/main.c src/cpu.c -o build/out
 
 clean:
-	rm -f a.out
+	rm -f build/*
 
 run:
-	@./a.out
+	@./build/out
