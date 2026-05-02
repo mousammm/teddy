@@ -5,28 +5,24 @@
 #include "cpu.h"
 #include "fillMem.h"
 
-// typedef enum {
-//   IMMEDIATE = 2,
-//   ABSOLUTE = 3,
-// } mode;
-//
-// typedef enum {
-//   LDA,
-//   LDX,
-//   LDY,
-// } ins;
-//
-// typedef struct {
-//   ins ins;
-//   mode mode;
-// } INS;
-//
-//
-// /* 256 diff commands */
-// INS inst[0xFF] = {
-//   [0xA9] = {LDA, IMMEDIATE},
-// };
+typedef enum {
+  IMMEDIATE = 2,
+  ABSOLUTE = 3,
+} mode;
 
+typedef enum {
+  IN_LDA,
+  IN_LDX,
+  IN_LDY,
+} ins;
+
+typedef struct {
+  ins ins;
+  mode mode;
+  void (*IN_FUN)();
+} INS;
+
+/* instruction function */
 void LDA() {
   u8 val = RAM[cpu.pc+1];
   cpu.a = val;
@@ -69,6 +65,11 @@ void STY() {
   RAM[loc] = cpu.y;
 }
 
+/* 256 diff commands */
+INS inst[0xFF] = {
+  [0xA9] = {IN_LDA, IMMEDIATE, LDA},
+};
+
 void tick() {
   /* fetch */
   u8 command = RAM[cpu.pc];
@@ -105,6 +106,8 @@ int main(int argc, char *argv[])
 {
   init();
   for (int i=0; i<10; ++i) {
+    printf("%hu\n", inst->mode);
+    printf("%c\n", inst->ins);
     tick();
   }
 
@@ -118,6 +121,5 @@ int main(int argc, char *argv[])
   printf("STX ram.0x4401 %hu 0x%02x\n", RAM[0x4401], RAM[0x4401]);
   printf("STY ram.0x4402 %hu 0x%02x\n", RAM[0x4402], RAM[0x4402]);
 
-  printf("\n" );
   return EXIT_SUCCESS;
 }

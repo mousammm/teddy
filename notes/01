@@ -1,0 +1,22 @@
+Links: https://www.nesdev.org/6502.txt
+
+REGISTERS
+  accumulator, x, y,
+  Status register
+    bitno 7 6 5 4 3 2 1 0
+          S V   B D I Z C
+  Program counter
+  Stack pointer
+
+ADDRESSING MODE (11)
+  Immediate #
+  Absolute & Zero Page Absolute
+  Implied
+  Accumulator
+  Indexed and Zero-page Indexed
+  Indirect
+  Pre-indexed Indirect
+  Post-indexed Indirect
+  Relative
+
+INSTRUCTION SET(56)
