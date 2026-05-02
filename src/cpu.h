@@ -1,7 +1,7 @@
 #pragma once
 #include "common.h"
 
-const u32 MAX_MEM = 1024*64;
+#define MAX_MEM 0x10000
 
 typedef struct 
 {

@@ -7,8 +7,8 @@
 
 int main(int argc, char *argv[])
 {
-  struct CPU cpu;
-  struct MEM mem;
+  CPU cpu;
+  MEM mem;
 
   CPU_Reset(&cpu);
   MEM_Init(&mem);
