@@ -11,21 +11,19 @@ typedef struct {
   u16 PC;     /* program counter */
 } CPU;
 
-void initRAM(RAM *ram);
-
-static void initCPU(CPU *cpu) {
-  cpu->AC = 0x0;
-  cpu->XR = 0x0;
-  cpu->YR = 0x0;
-  cpu->PC = 0x1000;
-}
-
 typedef void (*InsFun)(CPU*, RAM*);
 typedef struct {
   InsFun  func;
   u8      pc_inc;
 } Instruction;
 
+void initRAM(RAM *ram);
+static void initCPU(CPU *cpu) {
+  cpu->AC = 0x0;
+  cpu->XR = 0x0;
+  cpu->YR = 0x0;
+  cpu->PC = 0x1000;
+}
 
 /* LDA $49 $44 (Immediate) */
 static void LDA(CPU *cpu, RAM *ram) {

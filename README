@@ -1,4 +1,5 @@
 
 # TODOs
 
-- cheek tick command with command
+- add MODE enum in INS struct
+- add get_loc_by_mode()

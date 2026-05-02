@@ -25,5 +25,10 @@ void initRAM(RAM *ram) {
   ram->RAM[0x100C] = 0x8C; /* STY $8C $4402(Absolute) */
   ram->RAM[0x100D] = 0x02; /* lsb 1st (little endine) */
   ram->RAM[0x100E] = 0x44; /* msb 2nd */
+
+  ram->RAM[0x100F] = 0xE8; /* INX x reg ++ */
+  ram->RAM[0x1010] = 0xC8; /* INY y reg ++ */
+  ram->RAM[0x1011] = 0xCA; /* DEX x reg -- */
+  ram->RAM[0x1012] = 0x88; /* DEY y reg -- */
 }
 

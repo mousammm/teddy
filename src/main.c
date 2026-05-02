@@ -6,14 +6,24 @@
 CPU cpu;
 RAM ram;
 
+void INX(CPU *cpu, RAM *ram) { cpu->XR++; }
+void INY(CPU *cpu, RAM *ram) { cpu->YR++; }
+void DEX(CPU *cpu, RAM *ram) { cpu->XR--; }
+void DEY(CPU *cpu, RAM *ram) { cpu->YR--; }
+
 Instruction INS[0x100] = {
-  [0xA9] = (Instruction){LDA, 2},
+  [0xA9] = (Instruction){LDA, 2},/* immediate: 2 */
   [0xA2] = (Instruction){LDX, 2},
   [0xA0] = (Instruction){LDY, 2},
 
-  [0x8D] = (Instruction){STA, 3},
+  [0x8D] = (Instruction){STA, 3},/* absolute: 3 */
   [0x8E] = (Instruction){STX, 3},
   [0x8C] = (Instruction){STY, 3},
+
+  [0xE8] = (Instruction){INX, 1}, // implide mode: 1;
+  [0xC8] = (Instruction){INY, 1},
+  [0xCA] = (Instruction){DEX, 1}, // implide mode: 1;
+  [0x88] = (Instruction){DEY, 1},
 };
 
 /* tick */
