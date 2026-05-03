@@ -8,6 +8,3 @@
   * zero page x
 
 - add get_loc_by_mode()
-- add machine code 
-  * a push to array fun
-  * read from file

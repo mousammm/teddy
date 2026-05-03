@@ -6,18 +6,17 @@
 CPU cpu;
 RAM ram;
 
-
 Instruction INS[0x100] = {
 
-  [0xA9] = (Instruction){LDA, IMMEDIATE},/* immediate: 2 */
+  [0xA9] = (Instruction){LDA, IMMEDIATE},
   [0xA2] = (Instruction){LDX, IMMEDIATE},
   [0xA0] = (Instruction){LDY, IMMEDIATE},
 
-  [0x8D] = (Instruction){STA, ABSOLUTE},/* absolute: 3 */
+  [0x8D] = (Instruction){STA, ABSOLUTE},
   [0x8E] = (Instruction){STX, ABSOLUTE},
   [0x8C] = (Instruction){STY, ABSOLUTE},
 
-  [0xE8] = (Instruction){INX, IMPLIED}, // implide mode: 1;
+  [0xE8] = (Instruction){INX, IMPLIED},
   [0xC8] = (Instruction){INY, IMPLIED},
   [0xCA] = (Instruction){DEX, IMPLIED},
   [0x88] = (Instruction){DEY, IMPLIED},
@@ -27,6 +26,13 @@ Instruction INS[0x100] = {
   [0x98] = (Instruction){TYA, IMPLIED},
 
 };
+
+u16 get_loc_by_mode(Instruction *ins) {
+  /* immediate pc+1 = loc */
+  if (ins->mode == IMMEDIATE) {
+  printf("ABS \n");
+  }
+}
 
 /* tick */
 void tick(CPU *cpu, RAM *ram) {
@@ -50,6 +56,8 @@ int main(int argc, char *argv[])
 
   initCPU(&cpu);
   initRAM(&ram);
+
+  get_loc_by_mode(INS);
 
   for (int i = 0; i < 20; ++i) {
     tick(&cpu, &ram);
