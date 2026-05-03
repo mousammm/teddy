@@ -15,6 +15,12 @@ void initRAM(RAM *ram) {
   pushMC(ram, 0xA9); /* LDA $A9 #$0A */
   pushMC(ram, 0x0A);
 
+  // pushMC(ram, 0xA5); /* LDA $A5 $0A (AC = RAM[0x000A]) */
+  // pushMC(ram, 0x0A); /* 0x000A */
+
+  // pushMC(ram, 0xB5); /* LDA $A5 $0A (AC = RAM[0x000A+XR]) */
+  // pushMC(ram, 0x0A); /* return 0x000A +x */
+
   // pushMC(ram, 0xAD); /* LDA_A (AC = RAM[0x4401] */
   // pushMC(ram, 0x01);
   // pushMC(ram, 0x44);

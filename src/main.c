@@ -10,6 +10,8 @@ Instruction INS[0x100] = {
 
   /* Load the accumulator */
   [0xA9] = (Instruction){LDA, IMMEDIATE},
+  [0xA5] = (Instruction){LDA_ZP, ZERO_PAGE},
+  [0xB5] = (Instruction){LDA_ZP_X, ZERO_PAGE_X},
   [0xAD] = (Instruction){LDA_A, ABSOLUTE},
   [0xBD] = (Instruction){LDA_X, ABSOLUTE_X},
   [0xB9] = (Instruction){LDA_Y, ABSOLUTE_Y},

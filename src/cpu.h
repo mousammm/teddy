@@ -1,5 +1,6 @@
 #pragma once
 #include "common.h"
+#include <stdio.h>
 
 typedef struct {
   u8 RAM[0x10000];
@@ -42,6 +43,18 @@ static void initCPU(CPU *cpu) {
 static void LDA(CPU *cpu, RAM *ram) {
   u8 val = ram->RAM[cpu->PC+1];
   cpu->AC = val;
+};
+
+static void LDA_ZP(CPU *cpu, RAM *ram) {
+ /* load ac = ram(loc) */
+  u16 loc = ram->RAM[cpu->PC+1];
+  printf("Zero Page: 0x%04x\n", loc);
+};
+
+static void LDA_ZP_X(CPU *cpu, RAM *ram) {
+ /* load ac = ram(loc+x) */
+  u16 loc = ram->RAM[cpu->PC+1];
+  printf("Zero Page X: 0x%04x\n", loc+cpu->XR);
 };
 
 static void LDA_A(CPU *cpu, RAM *ram) {
