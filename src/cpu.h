@@ -69,3 +69,14 @@ static void STY(CPU *cpu, RAM *ram) {
 
   ram->RAM[loc] = cpu->YR;
 };
+
+/* inc x and y */
+static void INX(CPU *cpu, RAM *ram) { cpu->XR++; }
+static void INY(CPU *cpu, RAM *ram) { cpu->YR++; }
+static void DEX(CPU *cpu, RAM *ram) { cpu->XR--; }
+static void DEY(CPU *cpu, RAM *ram) { cpu->YR--; }
+/* transfer x/y with a */
+static void TAX(CPU *cpu, RAM *ram) { cpu->XR = cpu->AC; } /* x = a */
+static void TAY(CPU *cpu, RAM *ram) { cpu->YR = cpu->AC; } /* y = a */
+static void TXA(CPU *cpu, RAM *ram) { cpu->AC = cpu->XR; } /* a = x */
+static void TYA(CPU *cpu, RAM *ram) { cpu->AC = cpu->YR; } /* a = y */
