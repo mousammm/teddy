@@ -30,5 +30,11 @@ void initRAM(RAM *ram) {
   ram->RAM[0x1010] = 0xC8; /* INY y reg ++ */
   ram->RAM[0x1011] = 0xCA; /* DEX x reg -- */
   ram->RAM[0x1012] = 0x88; /* DEY y reg -- */
+
+  // ram->RAM[0x1013] = 0xAA; /* TAX x = a*/
+  // ram->RAM[0x1014] = 0xA8; /* TAY y = a*/
+  // ram->RAM[0x1013] = 0x8A; /* TXA a = x*/
+  // ram->RAM[0x1013] = 0x98; /* TYA a = y*/
+
 }
 

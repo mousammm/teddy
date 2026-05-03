@@ -11,6 +11,11 @@ void INY(CPU *cpu, RAM *ram) { cpu->YR++; }
 void DEX(CPU *cpu, RAM *ram) { cpu->XR--; }
 void DEY(CPU *cpu, RAM *ram) { cpu->YR--; }
 
+void TAX(CPU *cpu, RAM *ram) { cpu->XR = cpu->AC; } /* x = a */
+void TAY(CPU *cpu, RAM *ram) { cpu->YR = cpu->AC; } /* y = a */
+void TXA(CPU *cpu, RAM *ram) { cpu->AC = cpu->XR; } /* a = x */
+void TYA(CPU *cpu, RAM *ram) { cpu->AC = cpu->YR; } /* a = y */
+
 Instruction INS[0x100] = {
   [0xA9] = (Instruction){LDA, 2},/* immediate: 2 */
   [0xA2] = (Instruction){LDX, 2},
@@ -24,6 +29,12 @@ Instruction INS[0x100] = {
   [0xC8] = (Instruction){INY, 1},
   [0xCA] = (Instruction){DEX, 1}, // implide mode: 1;
   [0x88] = (Instruction){DEY, 1},
+
+  [0xAA] = (Instruction){TAX, 1},
+  [0xA8] = (Instruction){TAY, 1},
+  [0x8A] = (Instruction){TXA, 1},
+  [0x98] = (Instruction){TYA, 1},
+
 };
 
 /* tick */
@@ -37,7 +48,7 @@ void tick(CPU *cpu, RAM *ram) {
     inst->func(cpu, ram);
     cpu->PC += inst->pc_inc;
   } else {
-    printf("Unknown opcode: 0x%02x\n", command);
+    // printf("Unknown opcode: 0x%02x\n", command);
     cpu->PC++;
   }
 
@@ -49,7 +60,7 @@ int main(int argc, char *argv[])
   initCPU(&cpu);
   initRAM(&ram);
 
-  for (int i = 0; i < 10; ++i) {
+  for (int i = 0; i < 20; ++i) {
     tick(&cpu, &ram);
   };
 
