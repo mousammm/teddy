@@ -1,10 +1,5 @@
 
 # TODOs
 
-- lda 
-  * abs x
-  * abs y
-  * zero page
-  * zero page x
-
 - add get_loc_by_mode()
+  * refactore to get loc/value by the modes
