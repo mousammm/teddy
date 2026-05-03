@@ -1,5 +1,14 @@
 
 # TODOs
 
+- lda 
+  * abs x
+  * abs y
+  * zero page
+  * zero page x
+
 - add MODE enum in INS struct
 - add get_loc_by_mode()
+- add machine code 
+  * a push to array fun
+  * read from file
