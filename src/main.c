@@ -6,24 +6,25 @@
 CPU cpu;
 RAM ram;
 
+
 Instruction INS[0x100] = {
 
-  [0xA9] = (Instruction){LDA, 2},/* immediate: 2 */
-  [0xA2] = (Instruction){LDX, 2},
-  [0xA0] = (Instruction){LDY, 2},
+  [0xA9] = (Instruction){LDA, IMMEDIATE},/* immediate: 2 */
+  [0xA2] = (Instruction){LDX, IMMEDIATE},
+  [0xA0] = (Instruction){LDY, IMMEDIATE},
 
-  [0x8D] = (Instruction){STA, 3},/* absolute: 3 */
-  [0x8E] = (Instruction){STX, 3},
-  [0x8C] = (Instruction){STY, 3},
+  [0x8D] = (Instruction){STA, ABSOLUTE},/* absolute: 3 */
+  [0x8E] = (Instruction){STX, ABSOLUTE},
+  [0x8C] = (Instruction){STY, ABSOLUTE},
 
-  [0xE8] = (Instruction){INX, 1}, // implide mode: 1;
-  [0xC8] = (Instruction){INY, 1},
-  [0xCA] = (Instruction){DEX, 1},
-  [0x88] = (Instruction){DEY, 1},
-  [0xAA] = (Instruction){TAX, 1},
-  [0xA8] = (Instruction){TAY, 1},
-  [0x8A] = (Instruction){TXA, 1},
-  [0x98] = (Instruction){TYA, 1},
+  [0xE8] = (Instruction){INX, IMPLIED}, // implide mode: 1;
+  [0xC8] = (Instruction){INY, IMPLIED},
+  [0xCA] = (Instruction){DEX, IMPLIED},
+  [0x88] = (Instruction){DEY, IMPLIED},
+  [0xAA] = (Instruction){TAX, IMPLIED},
+  [0xA8] = (Instruction){TAY, IMPLIED},
+  [0x8A] = (Instruction){TXA, IMPLIED},
+  [0x98] = (Instruction){TYA, IMPLIED},
 
 };
 
@@ -36,7 +37,7 @@ void tick(CPU *cpu, RAM *ram) {
 
   if (inst->func) {
     inst->func(cpu, ram);
-    cpu->PC += inst->pc_inc;
+    cpu->PC += inst->mode;
   } else {
     // printf("Unknown opcode: 0x%02x\n", command);
     cpu->PC++;

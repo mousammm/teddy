@@ -11,10 +11,16 @@ typedef struct {
   u16 PC;     /* program counter */
 } CPU;
 
+typedef enum {
+  IMMEDIATE = 2,
+  ABSOLUTE = 3,
+  IMPLIED = 1,
+} MODE;
+
 typedef void (*InsFun)(CPU*, RAM*);
 typedef struct {
   InsFun  func;
-  u8      pc_inc;
+  MODE    mode;
 } Instruction;
 
 void initRAM(RAM *ram);
