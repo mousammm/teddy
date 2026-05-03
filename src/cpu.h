@@ -12,9 +12,16 @@ typedef struct {
 } CPU;
 
 typedef enum {
-  IMMEDIATE = 2,
-  ABSOLUTE = 3,
-  IMPLIED = 1,
+  IMMEDIATE   = 2,
+
+  ZERO_PAGE   = 2, /* 1st 256 bytes of ram */
+  ZERO_PAGE_X = 2, /* 1st 256 bytes of ram */
+
+  ABSOLUTE    = 3,
+  ABSOLUTE_X  = 3,
+  ABSOLUTE_Y  = 3,
+
+  IMPLIED     = 1,
 } MODE;
 
 typedef void (*InsFun)(CPU*, RAM*);
@@ -35,6 +42,24 @@ static void initCPU(CPU *cpu) {
 static void LDA(CPU *cpu, RAM *ram) {
   u8 val = ram->RAM[cpu->PC+1];
   cpu->AC = val;
+};
+
+static void LDA_X(CPU *cpu, RAM *ram) {
+  u8 lsb = ram->RAM[cpu->PC+1];
+  u8 msb = ram->RAM[cpu->PC+2];
+  u16 loc = msb * 256 + lsb;
+  loc += cpu->XR;
+
+  cpu->AC = ram->RAM[loc];
+};
+
+static void LDA_Y(CPU *cpu, RAM *ram) {
+  u8 lsb = ram->RAM[cpu->PC+1];
+  u8 msb = ram->RAM[cpu->PC+2];
+  u16 loc = msb * 256 + lsb;
+  loc += cpu->YR;
+
+  cpu->AC = ram->RAM[loc];
 };
 
 /* LDX $4@ $45 (Immediate) */

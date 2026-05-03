@@ -43,5 +43,13 @@ void initRAM(RAM *ram) {
   // pushMC(ram, 0x8A); /* TXA a = x*/
   // pushMC(ram, 0x98); /* TYA a = y*/
 
+  // pushMC(ram, 0xBD); /* LDA_X (AC = 4401 + X)*/
+  // pushMC(ram, 0x01);
+  // pushMC(ram, 0x44);
+
+  // pushMC(ram, 0xB9); /* LDA_Y (AC = 4401 + Y)*/
+  // pushMC(ram, 0x01);
+  // pushMC(ram, 0x44);
+
 }
 
