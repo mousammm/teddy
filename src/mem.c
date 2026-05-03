@@ -15,6 +15,18 @@ void initRAM(RAM *ram) {
   pushMC(ram, 0xA9); /* LDA $A9 #$0A */
   pushMC(ram, 0x0A);
 
+  // pushMC(ram, 0xAD); /* LDA_A (AC = RAM[0x4401] */
+  // pushMC(ram, 0x01);
+  // pushMC(ram, 0x44);
+
+  // pushMC(ram, 0xBD); /* LDA_X (AC = RAM[4401 + X])*/
+  // pushMC(ram, 0x01);
+  // pushMC(ram, 0x44);
+
+  // pushMC(ram, 0xB9); /* LDA_Y (AC = RAM[4401 + Y])*/
+  // pushMC(ram, 0x01);
+  // pushMC(ram, 0x44);
+
   pushMC(ram, 0xA2); /* LDX $A2 #$0B */
   pushMC(ram, 0x0B);
 
@@ -43,13 +55,6 @@ void initRAM(RAM *ram) {
   // pushMC(ram, 0x8A); /* TXA a = x*/
   // pushMC(ram, 0x98); /* TYA a = y*/
 
-  // pushMC(ram, 0xBD); /* LDA_X (AC = 4401 + X)*/
-  // pushMC(ram, 0x01);
-  // pushMC(ram, 0x44);
-
-  // pushMC(ram, 0xB9); /* LDA_Y (AC = 4401 + Y)*/
-  // pushMC(ram, 0x01);
-  // pushMC(ram, 0x44);
 
 }
 

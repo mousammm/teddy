@@ -44,6 +44,14 @@ static void LDA(CPU *cpu, RAM *ram) {
   cpu->AC = val;
 };
 
+static void LDA_A(CPU *cpu, RAM *ram) {
+  u8 lsb = ram->RAM[cpu->PC+1];
+  u8 msb = ram->RAM[cpu->PC+2];
+  u16 loc = msb * 256 + lsb;
+
+  cpu->AC = ram->RAM[loc];
+};
+
 static void LDA_X(CPU *cpu, RAM *ram) {
   u8 lsb = ram->RAM[cpu->PC+1];
   u8 msb = ram->RAM[cpu->PC+2];
