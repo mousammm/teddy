@@ -8,7 +8,7 @@ RAM ram;
 
 Instruction INS[0x100] = {
 
-  /* Load the accumulator */
+  /* LDA */
   [0xA9] = (Instruction){LDA, IMMEDIATE},
   [0xA5] = (Instruction){LDA_ZP, ZERO_PAGE},
   [0xB5] = (Instruction){LDA_ZP_X, ZERO_PAGE_X},
@@ -16,11 +16,19 @@ Instruction INS[0x100] = {
   [0xBD] = (Instruction){LDA_X, ABSOLUTE_X},
   [0xB9] = (Instruction){LDA_Y, ABSOLUTE_Y},
 
+  /* LDX */
   [0xA2] = (Instruction){LDX, IMMEDIATE},
+
+  /* LDY */
   [0xA0] = (Instruction){LDY, IMMEDIATE},
 
+  /* STA */
   [0x8D] = (Instruction){STA, ABSOLUTE},
+
+  /* STX */
   [0x8E] = (Instruction){STX, ABSOLUTE},
+
+  /* STY */
   [0x8C] = (Instruction){STY, ABSOLUTE},
 
   [0xE8] = (Instruction){INX, IMPLIED},

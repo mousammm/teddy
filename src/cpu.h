@@ -46,15 +46,16 @@ static void LDA(CPU *cpu, RAM *ram) {
 };
 
 static void LDA_ZP(CPU *cpu, RAM *ram) {
- /* load ac = ram(loc) */
   u16 loc = ram->RAM[cpu->PC+1];
-  printf("Zero Page: 0x%04x\n", loc);
+
+  cpu->AC = ram->RAM[loc];
 };
 
 static void LDA_ZP_X(CPU *cpu, RAM *ram) {
- /* load ac = ram(loc+x) */
   u16 loc = ram->RAM[cpu->PC+1];
-  printf("Zero Page X: 0x%04x\n", loc+cpu->XR);
+  loc += cpu->XR;
+
+  cpu->AC = ram->RAM[loc];
 };
 
 static void LDA_A(CPU *cpu, RAM *ram) {
